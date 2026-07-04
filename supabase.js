@@ -109,17 +109,9 @@ async function redirecionarPorPapel() {
     return;
   }
 
-  if (papel.nivel === 'presidencia') {
+  if (['presidencia', 'diretor', 'gerente', 'lider', 'vendedor', 'cliente'].includes(papel.nivel)) {
     if (!window.location.href.includes('admin.html')) {
       window.location.href = 'admin.html';
-    }
-  } else if (['diretor', 'gerente', 'lider', 'vendedor'].includes(papel.nivel)) {
-    if (!window.location.href.includes('gestor.html')) {
-      window.location.href = 'gestor.html';
-    }
-  } else if (papel.nivel === 'cliente') {
-    if (!window.location.href.includes('cliente.html')) {
-      window.location.href = 'cliente.html';
     }
   }
 
