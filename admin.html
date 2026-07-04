@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EU⁺ Central | Presidência</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --dourado: #C4974A;
+      --dourado-hover: #A67C3B;
+      --fundo: #0D0D0D;
+      --fundo-card: #1A1A1A;
+      --fundo-card-hover: #222222;
+      --texto: #F5F5F5;
+      --texto-secundario: #A0A0A0;
+      --borda: #2A2A2A;
+      --erro: #E74C3C;
+      --sucesso: #27AE60;
+      --azul: #4A9BC4;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background-color: var(--fundo);
+      color: var(--texto);
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--borda);
+      position: sticky;
+      top: 0;
+      background: var(--fundo);
+      z-index: 100;
+    }
+
+    .header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      color: var(--dourado);
+    }
+
+    .header-info {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .header-info span {
+      font-size: 0.8rem;
+      color: var(--texto-secundario);
+    }
+
+    .btn-logout {
+      padding: 6px 12px;
+      background: transparent;
+      border: 1px solid var(--borda);
+      border-radius: 6px;
+      color: var(--texto-secundario);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+
+    .btn-logout:hover {
+      border-color: var(--erro);
+      color: var(--erro);
+    }
+
+    /* CONTAINER */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    /* KPIs */
+    .kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 32px;
+    }
+
+    .kpi-card {
+      background: var(--fundo-card);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .kpi-card .valor {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--dourado);
+    }
+
+    .kpi-card .label {
+      font-size: 0.75rem;
+      color: var(--texto-secundario);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-top: 4px;
+    }
+
+    /* SEÇÕES */
+    .secao {
+      background: var(--fundo-card);
+      border: 1px solid var(--borda);
+      border-radius: 10px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .secao h2 {
+      font-size: 1rem;
+      font-weight: 500;
+      margin-bottom: 16px;
+      color: var(--texto);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* TABELAS */
+    .tabela-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      color: var(--texto-secundario);
+      font-weight: 500;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid var(--borda);
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--borda);
+      color: var(--texto);
+    }
+
+    tr:hover td {
+      background: var(--fundo-card-hover);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+
+    .badge-ativo { background: rgba(39,174,96,0.15); color: var(--sucesso); }
+    .badge-inativo { background: rgba(160,160,160,0.15); color: var(--texto-secundario); }
+    .badge-expirado { background: rgba(231,76,60,0.15); color: var(--erro); }
+
+    /* BOTÕES DE AÇÃO */
+    .btn-acao {
+      padding: 5px 10px;
+      background: transparent;
+      border: 1px solid var(--borda);
+      border-radius: 4px;
+      color: var(--texto-secundario);
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      margin-right: 4px;
+    }
+
+    .btn-acao:hover {
+      border-color: var(--dourado);
+      color: var(--dourado);
+    }
+
+    /* LOADING */
+    .loading {
+      text-align: center;
+      padding: 40px;
+      color: var(--texto-secundario);
+    }
+
+    @media (max-width: 768px) {
+      .kpis { grid-template-columns: repeat(2, 1fr); }
+      .header h1 { font-size: 1.1rem; }
+      .container { padding: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>EU⁺ Presidência</h1>
+    <div class="header-info">
+      <span id="user-nome">Carregando...</span>
+      <button class="btn-logout" onclick="logout()">Sair</button>
+    </div>
+  </div>
+
+  <div class="container">
+
+    <!-- KPIs GLOBAIS -->
+    <div class="kpis">
+      <div class="kpi-card">
+        <div class="valor" id="kpi-clientes">-</div>
+        <div class="label">Clientes Total</div>
+      </div>
+      <div class="kpi-card">
+        <div class="valor" id="kpi-ativos">-</div>
+        <div class="label">Assinaturas Ativas</div>
+      </div>
+      <div class="kpi-card">
+        <div class="valor" id="kpi-receita">-</div>
+        <div class="label">Receita Mês (R$)</div>
+      </div>
+      <div class="kpi-card">
+        <div class="valor" id="kpi-gestores">-</div>
+        <div class="label">Rede Comercial</div>
+      </div>
+      <div class="kpi-card">
+        <div class="valor" id="kpi-ferramentas">-</div>
+        <div class="label">Ferramentas Ativas</div>
+      </div>
+    </div>
+
+    <!-- REDE COMERCIAL -->
+    <div class="secao">
+      <h2>Rede Comercial</h2>
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Nível</th>
+              <th>Região</th>
+              <th>Clientes</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-rede">
+            <tr><td colspan="6" class="loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CLIENTES -->
+    <div class="secao">
+      <h2>Clientes</h2>
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Email</th>
+              <th>Ferramenta</th>
+              <th>Plano</th>
+              <th>Status</th>
+              <th>Gestor</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-clientes">
+            <tr><td colspan="7" class="loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FERRAMENTAS -->
+    <div class="secao">
+      <h2>Ferramentas</h2>
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Nome</th>
+              <th>Plataforma</th>
+              <th>Status</th>
+              <th>Clientes</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-ferramentas">
+            <tr><td colspan="5" class="loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- FINANCEIRO -->
+    <div class="secao">
+      <h2>Financeiro</h2>
+      <div class="tabela-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Data</th>
+              <th>Cliente</th>
+              <th>Valor</th>
+              <th>Gateway</th>
+              <th>Método</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody id="tabela-pagamentos">
+            <tr><td colspan="6" class="loading">Carregando...</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- SUPABASE CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+  <script>
+    // Proteção de página — só presidência acessa
+    (async () => {
+      const papel = await protegerPagina(['presidencia']);
+      if (!papel) return;
+
+      document.getElementById('user-nome').textContent = papel.nome;
+      await carregarDashboard();
+    })();
+
+    async function carregarDashboard() {
+      // KPI: Total de clientes
+      const { count: totalClientes } = await db
+        .from('clientes')
+        .select('*', { count: 'exact', head: true });
+      document.getElementById('kpi-clientes').textContent = totalClientes || 0;
+
+      // KPI: Assinaturas ativas
+      const { count: totalAtivos } = await db
+        .from('assinaturas')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'ativo');
+      document.getElementById('kpi-ativos').textContent = totalAtivos || 0;
+
+      // KPI: Receita do mês
+      const inicioMes = new Date();
+      inicioMes.setDate(1);
+      inicioMes.setHours(0, 0, 0, 0);
+      const { data: pagsMes } = await db
+        .from('pagamentos')
+        .select('valor_liquido')
+        .eq('status', 'confirmado')
+        .gte('data_pagamento', inicioMes.toISOString());
+      const receita = (pagsMes || []).reduce((sum, p) => sum + (p.valor_liquido || 0), 0);
+      document.getElementById('kpi-receita').textContent = receita.toLocaleString('pt-BR', { minimumFractionDigits: 2 });
+
+      // KPI: Rede comercial
+      const { count: totalRede } = await db
+        .from('rede_comercial')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'ativo');
+      document.getElementById('kpi-gestores').textContent = totalRede || 0;
+
+      // KPI: Ferramentas ativas
+      const { count: totalFerr } = await db
+        .from('ferramentas')
+        .select('*', { count: 'exact', head: true })
+        .eq('status', 'ativo');
+      document.getElementById('kpi-ferramentas').textContent = totalFerr || 0;
+
+      // Tabelas
+      await carregarTabelaRede();
+      await carregarTabelaClientes();
+      await carregarTabelaFerramentas();
+      await carregarTabelaPagamentos();
+    }
+
+    async function carregarTabelaRede() {
+      const { data } = await db
+        .from('rede_comercial')
+        .select('*')
+        .order('nivel', { ascending: true });
+
+      const tbody = document.getElementById('tabela-rede');
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">Nenhum membro na rede ainda</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map(r => `
+        <tr>
+          <td>${r.nome}</td>
+          <td>${r.nivel}</td>
+          <td>${r.regiao || '-'}</td>
+          <td>-</td>
+          <td><span class="badge badge-${r.status === 'ativo' ? 'ativo' : 'inativo'}">${r.status}</span></td>
+          <td>
+            <button class="btn-acao" onclick="promover('${r.id}')">Promover</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function carregarTabelaClientes() {
+      const { data } = await db
+        .from('clientes')
+        .select('*, assinaturas(*)')
+        .order('data_cadastro', { ascending: false })
+        .limit(50);
+
+      const tbody = document.getElementById('tabela-clientes');
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7" class="loading">Nenhum cliente ainda</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map(c => {
+        const ass = c.assinaturas && c.assinaturas[0];
+        return `
+          <tr>
+            <td>${c.id_universal}</td>
+            <td>${c.nome}</td>
+            <td>${c.email}</td>
+            <td>${ass ? ass.ferramenta_id : '-'}</td>
+            <td>${ass ? ass.status : '-'}</td>
+            <td><span class="badge badge-${c.status === 'ativo' ? 'ativo' : 'inativo'}">${c.status}</span></td>
+            <td>-</td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    async function carregarTabelaFerramentas() {
+      const { data } = await db
+        .from('ferramentas')
+        .select('*')
+        .order('nome', { ascending: true });
+
+      const tbody = document.getElementById('tabela-ferramentas');
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="loading">Nenhuma ferramenta cadastrada</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map(f => `
+        <tr>
+          <td>${f.id}</td>
+          <td>${f.nome}</td>
+          <td>${f.plataforma}</td>
+          <td><span class="badge badge-${f.status === 'ativo' ? 'ativo' : 'inativo'}">${f.status}</span></td>
+          <td>-</td>
+        </tr>
+      `).join('');
+    }
+
+    async function carregarTabelaPagamentos() {
+      const { data } = await db
+        .from('pagamentos')
+        .select('*, clientes(nome)')
+        .order('created_at', { ascending: false })
+        .limit(20);
+
+      const tbody = document.getElementById('tabela-pagamentos');
+      if (!data || data.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6" class="loading">Nenhum pagamento registrado</td></tr>';
+        return;
+      }
+
+      tbody.innerHTML = data.map(p => `
+        <tr>
+          <td>${new Date(p.created_at).toLocaleDateString('pt-BR')}</td>
+          <td>${p.clientes ? p.clientes.nome : '-'}</td>
+          <td>R$ ${(p.valor_liquido || 0).toFixed(2)}</td>
+          <td>${p.gateway}</td>
+          <td>${p.metodo}</td>
+          <td><span class="badge badge-${p.status === 'confirmado' ? 'ativo' : 'expirado'}">${p.status}</span></td>
+        </tr>
+      `).join('');
+    }
+
+    async function promover(id) {
+      alert('Funcionalidade de promoção será implementada na próxima fase.');
+    }
+  </script>
+
+</body>
+</html>
