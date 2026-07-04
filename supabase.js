@@ -2,8 +2,8 @@
 // CENTRAL DO GESTOR EU⁺ — CONFIGURAÇÃO SUPABASE
 // =============================================================================
 
-const SUPABASE_URL = 'https://SEU_PROJECT_ID.supabase.co';
-const SUPABASE_ANON_KEY = 'SUA_ANON_KEY_AQUI';
+const SUPABASE_URL = 'https://mjlcfhzqhcqsldjxaggc.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_60gCcEFSLY_HCabrjunGYA_cB58xve4';
 
 // Inicializa o client Supabase
 const { createClient } = supabase;
