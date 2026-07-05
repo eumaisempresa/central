@@ -3,7 +3,7 @@
 // =============================================================================
 
 const SUPABASE_URL = 'https://mjlcfhzqhcqsldjxaggc.supabase.co';
-const SUPABASE_ANON_KEY = 'sb_publishable_60gCcEFSLY_HCabrjunGYA_cB58xve4';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1qbGNmaHpxaGNxc2xkanhhZ2djIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODMxNzkzNzgsImV4cCI6MjA5ODc1NTM3OH0.Wn9PbME41LgkIGjBMDHXaOGqjwZwipKdj5Ni6Dl2N_8';
 
 // Inicializa o client Supabase
 const { createClient } = supabase;
