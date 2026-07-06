@@ -138,7 +138,7 @@ async function redirecionarPorPapel() {
     return;
   }
 
-  if (papel.nivel === 'presidente') {
+  if (papel.nivel === 'presidencia') {
     if (!window.location.href.includes('admin.html')) {
       window.location.href = 'admin.html';
     }
